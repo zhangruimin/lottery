@@ -85,9 +85,9 @@ public class TicketState {
         int notUsed = getNotUsed();
 
         if (notUsed <= 0) {
-            lotteryRecord.setPrizeType(PrizeType.BLANK);
-            blankNotUsed = Math.max(0, blankNotUsed - 1);
-            blankUsed++;
+            lotteryRecord.setPrizeType(PrizeType.NORMAL);
+            normalNotUsed = Math.max(0, normalNotUsed - 1);
+            normalUsed++;
             return lotteryRecord;
         }
 

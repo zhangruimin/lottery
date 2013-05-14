@@ -28,6 +28,6 @@ public class LoginForm {
     }
 
     public boolean isSA(){
-        return "SA".equalsIgnoreCase(getUserName())&& "1234".equals(password);
+        return "SA".equalsIgnoreCase(getUserName())&& "yydx517".equals(password);
     }
 }
