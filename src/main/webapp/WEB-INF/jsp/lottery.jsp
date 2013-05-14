@@ -11,7 +11,7 @@
     <%@include file="common/navbar.jsp" %>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span9">
+            <div class="span9 lottery_container">
                 <form method="post" action="/lottery/lottery">
                     <dl>
                         <dt>请输入手机号：</dt>

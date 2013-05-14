@@ -10,7 +10,7 @@
     <%@include file="common/navbar.jsp" %>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span9">
+            <div class="span9 lottery_container">
                 <div>${error}</div>
                 <div><a href="/lottery/lottery">重新抽奖</a></div>
             </div>

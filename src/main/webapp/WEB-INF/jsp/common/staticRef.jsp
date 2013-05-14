@@ -1,3 +1,4 @@
+<link href="/lottery/images/fav_icon.png" rel="icon" type="image/x-icon">
 <link href="/lottery/css/bootstrap/bootstrap.css" rel="stylesheet"/>
 <link href="/lottery/css/reset.css" rel="stylesheet" type="text/css"/>
 <link href="/lottery/css/common.css" rel="stylesheet" type="text/css"/>

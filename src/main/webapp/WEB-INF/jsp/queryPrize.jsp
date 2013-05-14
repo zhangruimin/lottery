@@ -35,7 +35,7 @@
                             <c:forEach var="lottery" items="${lotteryRecords}">
                                 <tr>
                                     <td>${lottery.phoneNumber}</td>
-                                    <td>${lottery.prize}</td>
+                                    <td>${lottery.prizeState}</td>
                                     <td>${lottery.userLocation}</td>
                                     <td>${lottery.userName}</td>
                                 </tr>

@@ -10,8 +10,8 @@
     <%@include file="common/navbar.jsp" %>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span9">
-                <div>
+            <div class="span9 lottery_container">
+                <div class="lottery_result_container">
                     <div>手机号：${lottery.phoneNumber}</div>
                     <div>${lottery.prize}</div>
                 </div>

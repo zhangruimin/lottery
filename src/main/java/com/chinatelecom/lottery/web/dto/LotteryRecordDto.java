@@ -12,8 +12,17 @@ import com.chinatelecom.lottery.model.LotteryRecord;
 public class LotteryRecordDto {
     private String phoneNumber;
     private String prize;
+    private String prizeState;
     private String userName;
     private String userLocation;
+
+    public String getPrizeState() {
+        return prizeState;
+    }
+
+    public void setPrizeState(String prizeState) {
+        this.prizeState = prizeState;
+    }
 
     public String getUserName() {
         return userName;
@@ -53,12 +62,15 @@ public class LotteryRecordDto {
         switch (record.getPrizeType()) {
             case BLANK:
                 dto.prize = "谢谢参与！";
+                dto.prizeState="未中奖";
                 break;
             case SPECIAL:
                 dto.prize = "恭喜，特等奖！";
+                dto.prizeState="特等奖";
                 break;
             case NORMAL:
                 dto.prize = "恭喜，纪念奖！";
+                dto.prizeState="纪念奖";
                 break;
         }
         dto.userLocation = record.getUserLocation();

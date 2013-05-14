@@ -570,3 +570,14 @@ dl dd {
     color: red;
     top: 150px;
 }
+
+.row-fluid .span9.lottery_container {
+    width: 100%;
+}
+
+.lottery_result_container{
+    font-size: 40px;
+    line-height: 40px;
+    color: red;
+    margin:40px;
+}
