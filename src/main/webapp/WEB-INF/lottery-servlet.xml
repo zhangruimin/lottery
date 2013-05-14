@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+    <mongo:mongo id="mongo" port="27017" host="localhost"/>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg ref="mongo" />
+        <constructor-arg value="test" />
+    </bean>
+
+    <context:component-scan base-package="com.chinatelecom.lottery.web"/>
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/js/**" location="/js/" />
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*" />
+            <bean class="com.chinatelecom.lottery.web.inteceptor.SecurityInterceptor">
+                <property name="excludedUrls">
+                    <list>
+                        <value>/login</value>
+                        <value>/</value>
+                        <value>/register</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="handlerExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="com.chinatelecom.lottery.web.inteceptor.AuthorizationException">redirect:/login</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="userRepository" class="com.chinatelecom.lottery.repository.UserRepository">
+        <property name="mongoOperations" ref="mongoTemplate"/>
+    </bean>
+
+    <bean id="lotteryRepository" class="com.chinatelecom.lottery.repository.LotteryRepository">
+        <property name="mongoOperations" ref="mongoTemplate"/>
+    </bean>
+
+    <bean id="ticketStateRepository" class="com.chinatelecom.lottery.repository.TicketStateRepository">
+        <property name="mongoOperations" ref="mongoTemplate"/>
+    </bean>
+
+    <bean id="ticketService" class="com.chinatelecom.lottery.service.TicketService">
+    </bean>
+
+</beans>

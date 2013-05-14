@@ -1,0 +1,12 @@
+
+/.idea
+*/.idea/*
+/*.iml
+/target
+/.classpath
+/.project
+/.settings/
+/src/main/webapp/WEB-INF/jsp/healthManage1.jsp
+/src/main/webapp/images/login_btn.png
+/src/main/webapp/js/lib/Date.js
+/src/test/java/com/fengtuo/healthcare/db/JavaTestOnly.java
