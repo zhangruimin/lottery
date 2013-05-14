@@ -2,6 +2,7 @@ package com.chinatelecom.lottery.repository;
 
 import com.chinatelecom.lottery.model.LotteryRecord;
 import com.chinatelecom.lottery.model.PrizeType;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -33,6 +34,7 @@ public class LotteryRepository  extends RepositoryBase<LotteryRecord> {
 
     public List<LotteryRecord> findByPrizeType(PrizeType type) {
         Query query = new Query(Criteria.where("prizeType").is(type));
+        query.with(new Sort(Sort.Direction.DESC, "timestamp"));
         return mongoOperations.find(query, LotteryRecord.class, COLLECTION);
     }
 }

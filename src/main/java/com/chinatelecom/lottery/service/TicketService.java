@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -74,6 +76,7 @@ public class TicketService {
             LotteryRecord lottery = ticketState.lottery(phone);
             lottery.setUserName(currentUser.getUserName());
             lottery.setUserLocation(currentUser.getLocation());
+            lottery.setTimestamp(new Date());
             lotteryRepository.save(lottery);
             ticketStateRepository.save(ticketState);
             return lottery;

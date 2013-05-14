@@ -2,6 +2,8 @@ package com.chinatelecom.lottery.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -16,6 +18,15 @@ public class LotteryRecord {
     private PrizeType prizeType;
     private String userName;
     private String userLocation;
+    private Date timestamp;
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public String getId() {
         return id;

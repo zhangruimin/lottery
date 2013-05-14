@@ -21,7 +21,9 @@
                     </dl>
                     <input id="start" type="submit" value="抽奖">
                 </form>
-                <div class="specialPrizeGot">
+                <marquee class="specialPrizeGot" behavior="scroll" direction="up" width="200" height="400"
+                         scrollamount="2" scrolldelay="10">
+                <div>
                     恭喜以下用户抽中特等奖：
                     <table id="table1" width="300" border="1" cellpadding="0"
                            cellspacing="0">
@@ -35,6 +37,7 @@
                         </c:forEach>
                     </table>
                 </div>
+                </marquee>
             </div>
             <!--/span-->
         </div>
