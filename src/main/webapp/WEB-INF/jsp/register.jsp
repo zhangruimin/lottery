@@ -25,7 +25,7 @@
 						</dd>
 						<dt>网点名称：</dt>
 						<dd>
-							<input type="text" name="phoneNumber" style="width:175px">
+							<input type="text" name="location" style="width:175px">
 						</dd>
 					</dl>
 					<input id="register" type="submit" value="立即注册">

@@ -12,59 +12,14 @@ import com.chinatelecom.lottery.model.User;
 public class UserInfoForm {
     private String userName;
     private String password;
-    private String phoneNumber;
-    private String email;
-    private Integer age;
-    private Integer height;
-    private Integer weight;
-    private Integer stepLength;
+    private String location;
 
-    public Integer getStepLength() {
-        return stepLength;
+    public String getLocation() {
+        return location;
     }
 
-    public void setStepLength(Integer stepLength) {
-        this.stepLength = stepLength;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getUserName() {
@@ -87,6 +42,7 @@ public class UserInfoForm {
         User user = new User();
         user.setUserName(userName);
         user.setPassword(password);
+        user.setLocation(location);
         return user;
     }
 }

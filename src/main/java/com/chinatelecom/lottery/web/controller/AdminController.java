@@ -51,7 +51,10 @@ public class AdminController extends BaseController {
         if (phone == null || phone.trim().equals("")) {
             results = lotteryRepository.findAll();
         } else {
-            results.add(lotteryRepository.findByPhone(phone));
+            LotteryRecord byPhone = lotteryRepository.findByPhone(phone);
+            if (byPhone != null) {
+                results.add(byPhone);
+            }
         }
         List<LotteryRecordDto> dtos = new ArrayList<LotteryRecordDto>();
         for (LotteryRecord r : results) {
