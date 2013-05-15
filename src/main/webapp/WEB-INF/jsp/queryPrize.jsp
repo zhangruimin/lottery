@@ -32,6 +32,7 @@
                                 <th>中奖情况</th>
                                 <th>网点</th>
                                 <th>网点用户名</th>
+                                <th>中奖时间</th>
                             </tr>
                             <c:forEach var="lottery" items="${lotteryRecords}">
                                 <tr>
@@ -39,6 +40,7 @@
                                     <td>${lottery.prizeState}</td>
                                     <td>${lottery.userLocation}</td>
                                     <td>${lottery.userName}</td>
+                                    <td>${lottery.timestamp}</td>
                                 </tr>
                             </c:forEach>
                         </table>

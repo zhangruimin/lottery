@@ -2,6 +2,8 @@ package com.chinatelecom.lottery.web.dto;
 
 import com.chinatelecom.lottery.model.LotteryRecord;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -15,6 +17,15 @@ public class LotteryRecordDto {
     private String prizeState;
     private String userName;
     private String userLocation;
+    private Date timestamp;
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public String getPrizeState() {
         return prizeState;
@@ -75,6 +86,7 @@ public class LotteryRecordDto {
         }
         dto.userLocation = record.getUserLocation();
         dto.userName = record.getUserName();
+        dto.timestamp = record.getTimestamp();
         return dto;
     }
 }
