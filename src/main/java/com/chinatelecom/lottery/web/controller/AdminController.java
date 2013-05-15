@@ -3,9 +3,12 @@ package com.chinatelecom.lottery.web.controller;
 import com.chinatelecom.lottery.model.LotteryRecord;
 import com.chinatelecom.lottery.model.PrizeType;
 import com.chinatelecom.lottery.model.TicketState;
+import com.chinatelecom.lottery.model.User;
 import com.chinatelecom.lottery.repository.LotteryRepository;
+import com.chinatelecom.lottery.repository.UserRepository;
 import com.chinatelecom.lottery.service.TicketService;
 import com.chinatelecom.lottery.web.dto.LotteryRecordDto;
+import com.chinatelecom.lottery.web.form.UserInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,13 +31,16 @@ import java.util.List;
 public class AdminController extends BaseController {
     private static final String MANAGE_PRIZE = "managePrize";
     private static final String QUERY_PRIZE = "queryPrize";
+    private static final String MANAGE_USER = "manageUser";
     private final TicketService ticketService;
     private LotteryRepository lotteryRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AdminController(TicketService ticketService, LotteryRepository lotteryRepository) {
+    public AdminController(TicketService ticketService, LotteryRepository lotteryRepository, UserRepository userRepository) {
         this.ticketService = ticketService;
         this.lotteryRepository = lotteryRepository;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(value = "managePrize", method = RequestMethod.GET)
@@ -80,6 +86,29 @@ public class AdminController extends BaseController {
         checkSA(session);
         ticketService.removeTickets(defaultValue(blank), defaultValue(special), defaultValue(normal));
         return "redirect:managePrize";
+    }
+
+    @RequestMapping(value = "manageUser", method = RequestMethod.GET)
+    public String manageUser(HttpSession session, ModelMap modelMap) {
+        checkSA(session);
+        List<User> users = userRepository.findAll();
+        modelMap.addAttribute("users", users);
+        return MANAGE_USER;
+    }
+
+    @RequestMapping(value = "removeUser",method = RequestMethod.GET)
+    public String removeUser(String id, HttpSession session) {
+        checkSA(session);
+        userRepository.remove(id);
+        return "redirect:manageUser";
+    }
+
+    @RequestMapping(value = "addUser",method = RequestMethod.POST)
+    public String addUser(UserInfoForm registerForm, HttpSession session) {
+        checkSA(session);
+        User user = registerForm.toUser();
+        userRepository.save(user);
+        return "redirect:manageUser";
     }
 
     private void checkSA(HttpSession session) {

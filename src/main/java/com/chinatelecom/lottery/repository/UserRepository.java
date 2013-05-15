@@ -1,13 +1,12 @@
 package com.chinatelecom.lottery.repository;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.chinatelecom.lottery.model.User;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.chinatelecom.lottery.model.User;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,5 +43,10 @@ public class UserRepository extends RepositoryBase<User> {
         query.addCriteria(Criteria.where("userName").is(userName));
         query.addCriteria(Criteria.where("password").is(password));
         return mongoOperations.findOne(query, User.class, COLLECTION);
+    }
+
+    public void remove(String id) {
+        User user = mongoOperations.findById(id, User.class, COLLECTION);
+        mongoOperations.remove(user, COLLECTION);
     }
 }
