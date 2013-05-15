@@ -49,6 +49,7 @@ public class LotteryController extends BaseController {
     @Transactional(propagation = Propagation.SUPPORTS)
     public String lottery(ModelMap model, HttpSession session, String phone) {
         try {
+            checkPhoneNumber(phone);
             LotteryRecord lottery = ticketService.lottery(phone, getCurrentUser(session));
             model.addAttribute("lottery", LotteryRecordDto.from(lottery));
         } catch (Exception e) {
@@ -59,14 +60,22 @@ public class LotteryController extends BaseController {
         return LOTTERY_RESULT;
     }
 
-    private void setExistedLotteries(ModelMap model){
+    private void checkPhoneNumber(String phone) {
+        if (!phone.startsWith("133") && !phone.startsWith("153")
+                && !phone.startsWith("180") && !phone.startsWith("181") &&
+                !phone.startsWith("189")) {
+            throw new IllegalArgumentException("号段不正确，只有电信手机号才能参与抽奖！");
+        }
+    }
+
+    private void setExistedLotteries(ModelMap model) {
         List<LotteryRecord> results = lotteryRepository.findByPrizeType(PrizeType.SPECIAL);
         List<LotteryRecordDto> dtos = new ArrayList<LotteryRecordDto>();
-        for(LotteryRecord r:results){
+        for (LotteryRecord r : results) {
             LotteryRecordDto dto = LotteryRecordDto.from(r);
-            dto.setPhoneNumber(dto.getPhoneNumber().substring(0,3)+"XXXX"+dto.getPhoneNumber().substring(7));
+            dto.setPhoneNumber(dto.getPhoneNumber().substring(0, 3) + "XXXX" + dto.getPhoneNumber().substring(7));
             dtos.add(dto);
         }
-        model.addAttribute("specialPrizes",dtos);
+        model.addAttribute("specialPrizes", dtos);
     }
 }
