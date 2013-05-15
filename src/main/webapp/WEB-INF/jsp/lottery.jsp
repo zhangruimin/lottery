@@ -19,25 +19,28 @@
                             <input type="text" name="phone" id="phoneNumber">
                         </dd>
                     </dl>
-                    <input id="start" type="submit" value="抽奖">
+                    <input id="start_lottery" type="submit" value="">
                 </form>
-                <marquee class="specialPrizeGot" behavior="scroll" direction="up" width="200" height="400"
-                         scrollamount="2" scrolldelay="10">
-                <div>
-                    恭喜以下用户抽中特等奖：
-                    <table id="table1" width="300" border="1" cellpadding="0"
-                           cellspacing="0">
-                        <tr>
-                            <th>手机号</th>
-                        </tr>
-                        <c:forEach var="lottery" items="${specialPrizes}">
+                <div class="lottery_board">
+                    <marquee class="specialPrizeGot" behavior="scroll" direction="up" width="350" height="400"
+                             scrollamount="2" scrolldelay="10">
+                    <div>
+                        <table id="table1" width="300" border="1" cellpadding="0"
+                               cellspacing="0">
                             <tr>
-                                <td>${lottery.phoneNumber}</td>
+                                <th>手机号</th>
+                                <th>网点</th>
                             </tr>
-                        </c:forEach>
-                    </table>
+                            <c:forEach var="lottery" items="${specialPrizes}">
+                                <tr>
+                                    <td>${lottery.phoneNumber}</td>
+                                    <td>${lottery.userLocation}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                    </marquee>
                 </div>
-                </marquee>
             </div>
             <!--/span-->
         </div>

@@ -19,4 +19,8 @@
     <%@include file="common/foot.jsp" %>
 </div>
 </body>
+<script type="text/javascript">
+    alert("${error}");
+    window.location.href="/lottery/lottery";
+</script>
 </html>

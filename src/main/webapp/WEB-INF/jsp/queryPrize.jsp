@@ -21,6 +21,7 @@
                     <div id="content">
                         <form class="add_devices" method="get" action="/lottery/admin/queryPrize">
                             <div>手机号：<input type="text" name="phone"></div>
+                            <div>只查特等奖：<input type="checkbox" name="specialOnly" value="true" ></div>
                             <input type="submit" value="查询">
                         </form>
                         <h3>查询结果</h3>

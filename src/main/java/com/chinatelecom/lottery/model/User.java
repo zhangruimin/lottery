@@ -51,6 +51,7 @@ public class User {
     public static User SA(){
         User user = new User();
         user.setUserName("SA");
+        user.setLocation("系统管理员");
         return user;
     }
 }

@@ -65,11 +65,11 @@ public class LotteryRecordDto {
                 dto.prizeState="未中奖";
                 break;
             case SPECIAL:
-                dto.prize = "恭喜，特等奖！";
+                dto.prize = "特等奖！";
                 dto.prizeState="特等奖";
                 break;
             case NORMAL:
-                dto.prize = "恭喜，纪念奖！";
+                dto.prize = "纪念奖！";
                 dto.prizeState="纪念奖";
                 break;
         }

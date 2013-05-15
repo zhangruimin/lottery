@@ -218,7 +218,7 @@ ul.nav-list li a span {
     border-left: 2px solid #bdbebd;
     width: 80%;
     background-color: #ffffff;
-    min-height: 800px;
+    min-height: 600px;
 }
 
 .user-info-form dl dt {
@@ -564,11 +564,19 @@ dl dd {
     vertical-align: middle;
 }
 
-.specialPrizeGot {
-    position: absolute;
-    right: 40px;
+.lottery_board{
+    background: url("../images/lottery_board.png") no-repeat scroll 0 0 transparent;
     color: red;
-    top: 150px;
+    height: 591px;
+    position: absolute;
+    right: 2px;
+    top: 109px;
+    width: 456px;
+}
+
+.specialPrizeGot{
+    margin:80px;
+    font-weight: bold;
 }
 
 .row-fluid .span9.lottery_container {
@@ -576,8 +584,16 @@ dl dd {
 }
 
 .lottery_result_container{
+    background: url("../images/lottery_result.png") no-repeat scroll 0 0 transparent;
+    color: black;
     font-size: 40px;
     line-height: 40px;
-    color: red;
-    margin:40px;
+    margin: 30px;
+    padding: 250px;
+}
+
+#start_lottery{
+    background: url("../images/start_lottery.png") no-repeat scroll 0 0 transparent;
+    width: 210px;
+    height: 186px;
 }

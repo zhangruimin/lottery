@@ -1,6 +1,7 @@
 package com.chinatelecom.lottery.web.controller;
 
 import com.chinatelecom.lottery.model.LotteryRecord;
+import com.chinatelecom.lottery.model.PrizeType;
 import com.chinatelecom.lottery.model.TicketState;
 import com.chinatelecom.lottery.repository.LotteryRepository;
 import com.chinatelecom.lottery.service.TicketService;
@@ -45,7 +46,7 @@ public class AdminController extends BaseController {
     }
 
     @RequestMapping(value = "queryPrize", method = RequestMethod.GET)
-    public String queryPrize(HttpSession session, ModelMap model, String phone) {
+    public String queryPrize(HttpSession session, ModelMap model, String phone, String specialOnly) {
         checkSA(session);
         List<LotteryRecord> results = new ArrayList<LotteryRecord>();
         if (phone == null || phone.trim().equals("")) {
@@ -58,6 +59,9 @@ public class AdminController extends BaseController {
         }
         List<LotteryRecordDto> dtos = new ArrayList<LotteryRecordDto>();
         for (LotteryRecord r : results) {
+            if("true".equals(specialOnly)&& !PrizeType.SPECIAL.equals(r.getPrizeType())){
+                continue;
+            }
             dtos.add(LotteryRecordDto.from(r));
         }
         model.addAttribute("lotteryRecords", dtos);
@@ -65,16 +69,16 @@ public class AdminController extends BaseController {
     }
 
     @RequestMapping(value = "addTickets", method = RequestMethod.POST)
-    public String addTickets(HttpSession session, int blank, int special, int normal) {
+    public String addTickets(HttpSession session, Integer blank, Integer special, Integer normal) {
         checkSA(session);
-        ticketService.addTickets(blank, special, normal);
+        ticketService.addTickets(defaultValue(blank), defaultValue(special), defaultValue(normal));
         return "redirect:managePrize";
     }
 
     @RequestMapping(value = "removeTickets", method = RequestMethod.POST)
-    public String removeTickets(HttpSession session, int blank, int special, int normal) {
+    public String removeTickets(HttpSession session, Integer blank, Integer special, Integer normal) {
         checkSA(session);
-        ticketService.removeTickets(blank, special, normal);
+        ticketService.removeTickets(defaultValue(blank), defaultValue(special), defaultValue(normal));
         return "redirect:managePrize";
     }
 
@@ -82,6 +86,13 @@ public class AdminController extends BaseController {
         if (!"sa".equals(getCurrentUser(session).getUserName().toLowerCase())) {
             throw new RuntimeException("不具备管理员权限！");
         }
+    }
+
+    private int defaultValue(Integer i){
+        if(i==null){
+            return 0;
+        }
+        return i;
     }
 }
 
