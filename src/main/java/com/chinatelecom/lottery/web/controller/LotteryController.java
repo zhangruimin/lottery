@@ -1,8 +1,10 @@
 package com.chinatelecom.lottery.web.controller;
 
 import com.chinatelecom.lottery.model.LotteryRecord;
+import com.chinatelecom.lottery.model.LotteryStatus;
 import com.chinatelecom.lottery.model.PrizeType;
 import com.chinatelecom.lottery.repository.LotteryRepository;
+import com.chinatelecom.lottery.repository.LotteryStatusRepository;
 import com.chinatelecom.lottery.service.TicketService;
 import com.chinatelecom.lottery.web.dto.LotteryRecordDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +34,30 @@ public class LotteryController extends BaseController {
     private static final String LOTTERY_ERROR = "lottery_error";
     private final TicketService ticketService;
     private LotteryRepository lotteryRepository;
+    private LotteryStatusRepository lotteryStatusRepository;
 
     @Autowired
-    public LotteryController(TicketService ticketService, LotteryRepository lotteryRepository) {
+    public LotteryController(TicketService ticketService, LotteryRepository lotteryRepository,
+                             LotteryStatusRepository lotteryStatusRepository) {
         this.ticketService = ticketService;
         this.lotteryRepository = lotteryRepository;
+        this.lotteryStatusRepository = lotteryStatusRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
+        setStatus(model);
         setExistedLotteries(model);
         return LOTTERY;
+    }
+
+    private void setStatus(ModelMap model) {
+        LotteryStatus lotteryStatus = lotteryStatusRepository.findOne();
+        if (lotteryStatus != null && !lotteryStatus.isOpened()) {
+            model.addAttribute("status", "false");
+        } else{
+            model.addAttribute("status", "true");
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)

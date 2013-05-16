@@ -65,6 +65,10 @@
         <property name="mongoOperations" ref="mongoTemplate"/>
     </bean>
 
+    <bean id="lotteryStatusRepository" class="com.chinatelecom.lottery.repository.LotteryStatusRepository">
+        <property name="mongoOperations" ref="mongoTemplate"/>
+    </bean>
+
     <bean id="ticketService" class="com.chinatelecom.lottery.service.TicketService">
     </bean>
 

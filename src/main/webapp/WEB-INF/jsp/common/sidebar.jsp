@@ -4,5 +4,6 @@
         <div><a href="/lottery/admin/managePrize">奖品设置</a></div>
         <div><a href="/lottery/admin/queryPrize">中奖查询</a></div>
         <div><a href="/lottery/admin/manageUser">管理用户</a></div>
+        <div><a href="/lottery/admin/manageLottery">控制抽奖</a></div>
     </div>
 </div>

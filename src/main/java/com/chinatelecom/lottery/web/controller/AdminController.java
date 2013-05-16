@@ -1,10 +1,8 @@
 package com.chinatelecom.lottery.web.controller;
 
-import com.chinatelecom.lottery.model.LotteryRecord;
-import com.chinatelecom.lottery.model.PrizeType;
-import com.chinatelecom.lottery.model.TicketState;
-import com.chinatelecom.lottery.model.User;
+import com.chinatelecom.lottery.model.*;
 import com.chinatelecom.lottery.repository.LotteryRepository;
+import com.chinatelecom.lottery.repository.LotteryStatusRepository;
 import com.chinatelecom.lottery.repository.UserRepository;
 import com.chinatelecom.lottery.service.TicketService;
 import com.chinatelecom.lottery.web.dto.LotteryRecordDto;
@@ -35,12 +33,15 @@ public class AdminController extends BaseController {
     private final TicketService ticketService;
     private LotteryRepository lotteryRepository;
     private UserRepository userRepository;
+    private LotteryStatusRepository lotteryStatusRepository;
 
     @Autowired
-    public AdminController(TicketService ticketService, LotteryRepository lotteryRepository, UserRepository userRepository) {
+    public AdminController(TicketService ticketService, LotteryRepository lotteryRepository,
+                           UserRepository userRepository, LotteryStatusRepository lotteryStatusRepository) {
         this.ticketService = ticketService;
         this.lotteryRepository = lotteryRepository;
         this.userRepository = userRepository;
+        this.lotteryStatusRepository = lotteryStatusRepository;
     }
 
     @RequestMapping(value = "managePrize", method = RequestMethod.GET)
@@ -56,7 +57,7 @@ public class AdminController extends BaseController {
         checkSA(session);
         List<LotteryRecord> results = new ArrayList<LotteryRecord>();
         if (phone == null || phone.trim().equals("")) {
-            results = lotteryRepository.findAll();
+            results = lotteryRepository.findByPrizeType(null);
         } else {
             LotteryRecord byPhone = lotteryRepository.findByPhone(phone);
             if (byPhone != null) {
@@ -65,7 +66,7 @@ public class AdminController extends BaseController {
         }
         List<LotteryRecordDto> dtos = new ArrayList<LotteryRecordDto>();
         for (LotteryRecord r : results) {
-            if("true".equals(specialOnly)&& !PrizeType.SPECIAL.equals(r.getPrizeType())){
+            if ("true".equals(specialOnly) && !PrizeType.SPECIAL.equals(r.getPrizeType())) {
                 continue;
             }
             dtos.add(LotteryRecordDto.from(r));
@@ -96,19 +97,48 @@ public class AdminController extends BaseController {
         return MANAGE_USER;
     }
 
-    @RequestMapping(value = "removeUser",method = RequestMethod.GET)
+    @RequestMapping(value = "removeUser", method = RequestMethod.GET)
     public String removeUser(String id, HttpSession session) {
         checkSA(session);
         userRepository.remove(id);
         return "redirect:manageUser";
     }
 
-    @RequestMapping(value = "addUser",method = RequestMethod.POST)
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public String addUser(UserInfoForm registerForm, HttpSession session) {
         checkSA(session);
         User user = registerForm.toUser();
         userRepository.save(user);
         return "redirect:manageUser";
+    }
+
+    @RequestMapping(value = "manageLottery", method = RequestMethod.GET)
+    public String manageLottery(String status, HttpSession session, ModelMap modelMap) {
+        checkSA(session);
+        LotteryStatus lotteryStatus = lotteryStatusRepository.findOne();
+        if(lotteryStatus == null){
+            lotteryStatus = new LotteryStatus();
+        }
+        if ("false".equals(status)) {
+            lotteryStatus.setOpened(false);
+        }
+
+        if ("true".equals(status)) {
+            lotteryStatus.setOpened(true);
+        }
+
+        lotteryStatusRepository.save(lotteryStatus);
+
+        modelMap.addAttribute("status", getStatus(lotteryStatus));
+
+        return "manageLottery";
+    }
+
+    private String getStatus(LotteryStatus lotteryStatus) {
+        if (lotteryStatus != null && !lotteryStatus.isOpened()) {
+            return "关闭";
+        }
+        return "开启";
     }
 
     private void checkSA(HttpSession session) {
@@ -117,8 +147,8 @@ public class AdminController extends BaseController {
         }
     }
 
-    private int defaultValue(Integer i){
-        if(i==null){
+    private int defaultValue(Integer i) {
+        if (i == null) {
             return 0;
         }
         return i;

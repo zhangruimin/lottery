@@ -16,7 +16,7 @@ import java.util.List;
  * Time: 9:01 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LotteryRepository  extends RepositoryBase<LotteryRecord> {
+public class LotteryRepository extends RepositoryBase<LotteryRecord> {
     private static final String COLLECTION = "LotteryRecord";
 
     public LotteryRepository(MongoOperations mongoOperations) {
@@ -27,13 +27,18 @@ public class LotteryRepository  extends RepositoryBase<LotteryRecord> {
         this(null);
     }
 
-    public LotteryRecord findByPhone(String phone){
+    public LotteryRecord findByPhone(String phone) {
         Query query = new Query(Criteria.where("phoneNumber").is(phone));
         return mongoOperations.findOne(query, LotteryRecord.class, COLLECTION);
     }
 
     public List<LotteryRecord> findByPrizeType(PrizeType type) {
-        Query query = new Query(Criteria.where("prizeType").is(type));
+        Query query = new Query();
+        if (type != null) {
+            Criteria criteria = Criteria.where("prizeType").is(type);
+            query.addCriteria(criteria);
+        }
+
         query.with(new Sort(Sort.Direction.DESC, "timestamp"));
         return mongoOperations.find(query, LotteryRecord.class, COLLECTION);
     }
