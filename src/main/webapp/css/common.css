@@ -87,12 +87,10 @@ body {
 }
 
 .login-background {
-    background: url("../images/login_page_background.png") no-repeat scroll
-    0 0 transparent;
-    width: 651px;
+    width: 705px;
     height: 611px;
     position: absolute;
-    right: 50px;
+    right: 0px;
 }
 
 .login-form-outer {
@@ -581,6 +579,7 @@ dl dd {
 
 .row-fluid .span9.lottery_container {
     width: 100%;
+    background: url("../images/lottery_background.JPG") no-repeat scroll 0px 350px transparent;
 }
 
 .lottery_result_container{
@@ -600,4 +599,11 @@ dl dd {
 
 .error{
     color: red;
+}
+
+.special_prize_result{
+    background: url("../images/5210s.JPG") no-repeat scroll 0 0 transparent;
+    height: 323px;
+    margin: 20px;
+    width: 295px;
 }

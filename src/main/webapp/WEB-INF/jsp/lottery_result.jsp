@@ -14,6 +14,9 @@
                 <div class="lottery_result_container">
                     <div>手机号：${lottery.phoneNumber}</div>
                     <div>${lottery.prize}</div>
+                    <c:if test="${lottery.prize=='特等奖！'}">
+                        <div class="special_prize_result"></div>
+                    </c:if>
                 </div>
                 <div><a href="/lottery/lottery">重新抽奖</a></div>
             </div>
