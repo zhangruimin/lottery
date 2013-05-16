@@ -597,3 +597,7 @@ dl dd {
     width: 210px;
     height: 186px;
 }
+
+.error{
+    color: red;
+}

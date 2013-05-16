@@ -27,15 +27,10 @@ public class UserRepository extends RepositoryBase<User> {
         this(null);
     }
 
-    public String findUser(String deviceId) {
-        if (cache.containsKey(deviceId)) {
-            return cache.get(deviceId);
-        }
+    public User findUser(String userName) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("devices").elemMatch(Criteria.where("deviceId").is(deviceId)));
-        User user = mongoOperations.findOne(query, User.class, COLLECTION);
-        cache.put(deviceId, user.getId());
-        return user.getId();
+        query.addCriteria(Criteria.where("userName").is(userName));
+        return mongoOperations.findOne(query, User.class, COLLECTION);
     }
 
     public User findUser(String userName, String password) {

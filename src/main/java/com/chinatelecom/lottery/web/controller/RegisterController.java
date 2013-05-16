@@ -5,6 +5,7 @@ import com.chinatelecom.lottery.repository.UserRepository;
 import com.chinatelecom.lottery.web.form.UserInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,12 @@ public class RegisterController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String processForm(UserInfoForm registerForm, HttpSession session) {
+    public String processForm(ModelMap modelMap, UserInfoForm registerForm, HttpSession session) {
+        User existedUser = userRepository.findUser(registerForm.getUserName());
+        if(existedUser!=null){
+            modelMap.addAttribute("error","用户名已经被注册！");
+            return "register";
+        }
         User user = registerForm.toUser();
         userRepository.save(user);
         session.setAttribute("currentUser", user);
