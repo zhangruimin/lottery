@@ -18,6 +18,6 @@ import java.util.Map;
 public class RootController {
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(Map model) {
-        return "login";
+        return "redirect:login";
     }
 }

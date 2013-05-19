@@ -13,6 +13,7 @@ public class LotteryStatus {
     @Id
     private String id;
     private boolean opened = true;
+    private boolean allowRegister = true;
 
     public String getId() {
         return id;
@@ -28,5 +29,13 @@ public class LotteryStatus {
 
     public void setOpened(boolean opened) {
         this.opened = opened;
+    }
+
+    public boolean isAllowRegister() {
+        return allowRegister;
+    }
+
+    public void setAllowRegister(boolean allowRegister) {
+        this.allowRegister = allowRegister;
     }
 }

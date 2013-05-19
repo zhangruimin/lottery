@@ -12,18 +12,21 @@
     </div>
     <div class="login-body">
         <span class="login-background"></span>
+
         <div class="login-form-outer">
             <div class="login-label">登录</div>
             <div class="login-form">
                 <form method="post" action="/lottery/login">
                     <dl>
                         <dd><input type="text" name="userName" placeholder="用户名：" size="25"></dd>
-                        <dd><input type="password" name="password"  placeholder="密码："></dd>
+                        <dd><input type="password" name="password" placeholder="密码："></dd>
                     </dl>
                     <input id="login-button" type="submit" value="登录">
-                    <span id="register-links">
-                        <a href="/lottery/register">注册</a>
-                    </span>
+                    <c:if test="${status}">
+                        <span id="register-links">
+                                <a href="/lottery/register">注册</a>
+                         </span>
+                    </c:if>
                 </form>
             </div>
         </div>

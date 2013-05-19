@@ -134,6 +134,35 @@ public class AdminController extends BaseController {
         return "manageLottery";
     }
 
+    @RequestMapping(value = "manageRegister", method = RequestMethod.GET)
+    public String manageRegister(String status, HttpSession session, ModelMap modelMap) {
+        checkSA(session);
+        LotteryStatus lotteryStatus = lotteryStatusRepository.findOne();
+        if(lotteryStatus == null){
+            lotteryStatus = new LotteryStatus();
+        }
+        if ("false".equals(status)) {
+            lotteryStatus.setAllowRegister(false);
+        }
+
+        if ("true".equals(status)) {
+            lotteryStatus.setAllowRegister(true);
+        }
+
+        lotteryStatusRepository.save(lotteryStatus);
+
+        modelMap.addAttribute("status", getRegisterStatus(lotteryStatus));
+
+        return "manageRegister";
+    }
+
+    private String getRegisterStatus(LotteryStatus lotteryStatus) {
+        if (lotteryStatus != null && !lotteryStatus.isAllowRegister()) {
+            return "关闭";
+        }
+        return "开启";
+    }
+
     private String getStatus(LotteryStatus lotteryStatus) {
         if (lotteryStatus != null && !lotteryStatus.isOpened()) {
             return "关闭";
