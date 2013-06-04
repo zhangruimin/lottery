@@ -15,10 +15,10 @@ public class TicketState {
     @Id
     private String id;
     private int blankUsed;
-    private int specialUsed;
-    private int normalUsed;
     private int blankNotUsed;
+    private int specialUsed;
     private int specialNotUsed;
+    private int normalUsed;
     private int normalNotUsed;
 
     public String getId() {
