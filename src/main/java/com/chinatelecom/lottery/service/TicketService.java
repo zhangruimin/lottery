@@ -39,33 +39,44 @@ public class TicketService {
     }
 
 
-    @Transactional(propagation= Propagation.SUPPORTS)
-    public void addTickets(int blank, int special, int normal) {
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void addTickets(int blank, int special, int normal, int first, int second, int third) {
         synchronized (lock) {
             TicketState state = getTicketState();
             state.setBlankNotUsed(state.getBlankNotUsed() + blank);
             state.setNormalNotUsed(state.getNormalNotUsed() + normal);
             state.setSpecialNotUsed(state.getSpecialNotUsed() + special);
+            state.setFirstNotUsed(state.getFirstNotUsed() + first);
+            state.setSecondNotUsed(state.getSecondNotUsed() + second);
+            state.setThirdNotUsed(state.getThirdNotUsed() + third);
             ticketStateRepository.save(state);
         }
     }
 
 
-    @Transactional(propagation= Propagation.SUPPORTS)
-    public void removeTickets(int blank, int special, int normal) {
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void removeTickets(int blank, int special, int normal, int first, int second, int third) {
         synchronized (lock) {
             TicketState state = getTicketState();
-            if (blank > state.getBlankNotUsed() || normal > state.getNormalNotUsed() || special > state.getSpecialNotUsed()) {
+            if (blank > state.getBlankNotUsed()
+                    || normal > state.getNormalNotUsed()
+                    || special > state.getSpecialNotUsed()
+                    || first > state.getFirstNotUsed()
+                    || second > state.getSecondNotUsed()
+                    || third > state.getThirdNotUsed()) {
                 throw new IllegalArgumentException("要移除的奖券数不能少于剩余奖券数");
             }
             state.setBlankNotUsed(state.getBlankNotUsed() - blank);
             state.setNormalNotUsed(state.getNormalNotUsed() - normal);
             state.setSpecialNotUsed(state.getSpecialNotUsed() - special);
+            state.setFirstNotUsed(state.getFirstNotUsed() - first);
+            state.setSecondNotUsed(state.getSecondNotUsed() - second);
+            state.setThirdNotUsed(state.getThirdNotUsed() - third);
             ticketStateRepository.save(state);
         }
     }
 
-    @Transactional(propagation= Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS)
     public LotteryRecord lottery(String phone, User currentUser) {
         synchronized (lock) {
             if (lotteryRepository.findByPhone(phone) != null) {

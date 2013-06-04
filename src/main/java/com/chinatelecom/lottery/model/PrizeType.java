@@ -8,5 +8,5 @@ package com.chinatelecom.lottery.model;
  * To change this template use File | Settings | File Templates.
  */
 public enum PrizeType {
-    BLANK, SPECIAL, NORMAL;
+    BLANK, SPECIAL, NORMAL, FIRST, SECOND, THIRD;
 }

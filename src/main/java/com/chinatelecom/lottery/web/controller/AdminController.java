@@ -76,16 +76,20 @@ public class AdminController extends BaseController {
     }
 
     @RequestMapping(value = "addTickets", method = RequestMethod.POST)
-    public String addTickets(HttpSession session, Integer blank, Integer special, Integer normal) {
+    public String addTickets(HttpSession session, Integer blank, Integer special, Integer normal,
+                             Integer first, Integer second, Integer third) {
         checkSA(session);
-        ticketService.addTickets(defaultValue(blank), defaultValue(special), defaultValue(normal));
+        ticketService.addTickets(defaultValue(blank), defaultValue(special), defaultValue(normal),
+                defaultValue(first),defaultValue(second),defaultValue(third));
         return "redirect:managePrize";
     }
 
     @RequestMapping(value = "removeTickets", method = RequestMethod.POST)
-    public String removeTickets(HttpSession session, Integer blank, Integer special, Integer normal) {
+    public String removeTickets(HttpSession session, Integer blank, Integer special, Integer normal,
+                                Integer first, Integer second, Integer third) {
         checkSA(session);
-        ticketService.removeTickets(defaultValue(blank), defaultValue(special), defaultValue(normal));
+        ticketService.removeTickets(defaultValue(blank), defaultValue(special), defaultValue(normal),
+                defaultValue(first),defaultValue(second),defaultValue(third));
         return "redirect:managePrize";
     }
 

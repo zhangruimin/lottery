@@ -20,6 +20,12 @@ public class TicketState {
     private int specialNotUsed;
     private int normalUsed;
     private int normalNotUsed;
+    private int firstUsed;
+    private int firstNotUsed;
+    private int secondUsed;
+    private int secondNotUsed;
+    private int thirdUsed;
+    private int thirdNotUsed;
 
     public String getId() {
         return id;
@@ -27,6 +33,54 @@ public class TicketState {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getFirstUsed() {
+        return firstUsed;
+    }
+
+    public void setFirstUsed(int firstUsed) {
+        this.firstUsed = firstUsed;
+    }
+
+    public int getFirstNotUsed() {
+        return firstNotUsed;
+    }
+
+    public void setFirstNotUsed(int firstNotUsed) {
+        this.firstNotUsed = firstNotUsed;
+    }
+
+    public int getSecondUsed() {
+        return secondUsed;
+    }
+
+    public void setSecondUsed(int secondUsed) {
+        this.secondUsed = secondUsed;
+    }
+
+    public int getSecondNotUsed() {
+        return secondNotUsed;
+    }
+
+    public void setSecondNotUsed(int secondNotUsed) {
+        this.secondNotUsed = secondNotUsed;
+    }
+
+    public int getThirdUsed() {
+        return thirdUsed;
+    }
+
+    public void setThirdUsed(int thirdUsed) {
+        this.thirdUsed = thirdUsed;
+    }
+
+    public int getThirdNotUsed() {
+        return thirdNotUsed;
+    }
+
+    public void setThirdNotUsed(int thirdNotUsed) {
+        this.thirdNotUsed = thirdNotUsed;
     }
 
     public int getBlankUsed() {
@@ -101,6 +155,18 @@ public class TicketState {
             lotteryRecord.setPrizeType(PrizeType.NORMAL);
             normalNotUsed--;
             normalUsed++;
+        } else if (r >= getNormalNotUsed() + getSpecialNotUsed() && r < getNormalNotUsed() + getSpecialNotUsed() + getFirstNotUsed()) {
+            lotteryRecord.setPrizeType(PrizeType.FIRST);
+            firstNotUsed--;
+            firstUsed++;
+        } else if (r >= getNormalNotUsed() + getSpecialNotUsed() + getFirstNotUsed() && r < getNormalNotUsed() + getSpecialNotUsed() + getFirstNotUsed() + getSecondNotUsed()) {
+            lotteryRecord.setPrizeType(PrizeType.SECOND);
+            secondNotUsed--;
+            secondUsed++;
+        } else if (r >= getNormalNotUsed() + getSpecialNotUsed() + getFirstNotUsed() + getSecondNotUsed() && r < getNormalNotUsed() + getSpecialNotUsed() + getFirstNotUsed() + getSecondNotUsed() + getThirdNotUsed()) {
+            lotteryRecord.setPrizeType(PrizeType.THIRD);
+            thirdNotUsed--;
+            thirdUsed++;
         } else {
             lotteryRecord.setPrizeType(PrizeType.BLANK);
             blankNotUsed = Math.max(0, blankNotUsed - 1);
@@ -110,6 +176,7 @@ public class TicketState {
     }
 
     private int getNotUsed() {
-        return getNormalNotUsed() + getSpecialNotUsed() + getBlankNotUsed();
+        return getNormalNotUsed() + getSpecialNotUsed() + getBlankNotUsed()
+                +getFirstNotUsed()+getSecondNotUsed()+getThirdNotUsed();
     }
 }

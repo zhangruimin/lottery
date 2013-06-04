@@ -27,27 +27,47 @@
                                 <th>总数</th>
                                 <th>特等奖券</th>
                                 <th>纪念奖券</th>
+                                <th>一等奖券</th>
+                                <th>二等奖券</th>
+                                <th>三等奖券</th>
                                 <th>空白奖券</th>
                             </tr>
                             <tr>
                                 <td>全部</td>
-                                <td>${ticketState.specialUsed+ticketState.normalUsed+ticketState.blankUsed+ticketState.specialNotUsed+ticketState.normalNotUsed+ticketState.blankNotUsed}</td>
+                                <td>${ticketState.specialUsed+ticketState.normalUsed+ticketState.blankUsed
+                                                +ticketState.firstUsed+ticketState.secondUsed+ticketState.thirdUsed
+                                                +ticketState.specialNotUsed+ticketState.normalNotUsed+ticketState.blankNotUsed
+                                                +ticketState.firstNotUsed+ticketState.secondNotUsed+ticketState.thirdNotUsed}
+                                </td>
                                 <td>${ticketState.specialUsed+ticketState.specialNotUsed}</td>
                                 <td>${ticketState.normalUsed+ticketState.normalNotUsed}</td>
+                                <td>${ticketState.firstUsed+ticketState.firstNotUsed}</td>
+                                <td>${ticketState.secondUsed+ticketState.secondNotUsed}</td>
+                                <td>${ticketState.thirdUsed+ticketState.thirdNotUsed}</td>
                                 <td>${ticketState.blankUsed+ticketState.blankNotUsed}</td>
                             </tr>
                             <tr>
                                 <td>已使用</td>
-                                <td>${ticketState.specialUsed+ticketState.normalUsed+ticketState.blankUsed}</td>
+                                <td>${ticketState.specialUsed+ticketState.normalUsed+ticketState.blankUsed
+                                +ticketState.firstUsed+ticketState.secondUsed+ticketState.thirdUsed}
+                                </td>
                                 <td>${ticketState.specialUsed}</td>
                                 <td>${ticketState.normalUsed}</td>
+                                <td>${ticketState.firstUsed}</td>
+                                <td>${ticketState.secondUsed}</td>
+                                <td>${ticketState.thirdUsed}</td>
                                 <td>${ticketState.blankUsed}</td>
                             </tr>
                             <tr>
                                 <td>未使用</td>
-                                <td>${ticketState.specialNotUsed+ticketState.normalNotUsed+ticketState.blankNotUsed}</td>
+                                <td>${ticketState.specialNotUsed+ticketState.normalNotUsed+ticketState.blankNotUsed
+                                +ticketState.firstNotUsed+ticketState.secondNotUsed+ticketState.thirdNotUsed}
+                                </td>
                                 <td>${ticketState.specialNotUsed}</td>
                                 <td>${ticketState.normalNotUsed}</td>
+                                <td>${ticketState.firstNotUsed}</td>
+                                <td>${ticketState.secondNotUsed}</td>
+                                <td>${ticketState.thirdNotUsed}</td>
                                 <td>${ticketState.blankNotUsed}</td>
                             </tr>
                         </table>
@@ -57,6 +77,9 @@
                             <form class="add_devices" method="post" action="/lottery/admin/addTickets">
                                 <div>特等奖券：<input type="text" name="special"></div>
                                 <div>纪念奖券：<input type="text" name="normal"></div>
+                                <div>一等奖券：<input type="text" name="first"></div>
+                                <div>二等奖券：<input type="text" name="second"></div>
+                                <div>三等奖券：<input type="text" name="third"></div>
                                 <div>空白奖券：<input type="text" name="blank"></div>
                                 <input type="submit" value="添加">
                             </form>
@@ -67,6 +90,9 @@
                             <form class="add_devices" method="post" action="/lottery/admin/removeTickets">
                                 <div>特等奖券：<input type="text" name="special"></div>
                                 <div>纪念奖券：<input type="text" name="normal"></div>
+                                <div>一等奖券：<input type="text" name="first"></div>
+                                <div>二等奖券：<input type="text" name="second"></div>
+                                <div>三等奖券：<input type="text" name="third"></div>
                                 <div>空白奖券：<input type="text" name="blank"></div>
                                 <input type="submit" value="删除">
                             </form>
